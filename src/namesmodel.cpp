@@ -64,3 +64,17 @@ QVariant NamesModel::headerData(int section, Qt::Orientation orientation, int ro
 
     return QVariant();
 }
+
+bool NamesModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    return false;
+}
+
+Qt::ItemFlags NamesModel::flags(const QModelIndex &index) const
+{
+    if(index.isValid()) {
+        return Qt::ItemIsEditable | Qt::ItemIsEnabled;
+    }
+
+    return !Qt::ItemIsEnabled;
+}

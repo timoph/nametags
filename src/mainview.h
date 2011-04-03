@@ -7,6 +7,7 @@ class QTableView;
 class QHBoxLayout;
 class NamesModel;
 class PreviewWidget;
+class StringDelegate;
 
 class MainView : public QWidget
 {
@@ -24,6 +25,7 @@ private:
     QTableView *p_table;
     QHBoxLayout *p_hboxLayout;
     PreviewWidget *p_preview;
+    StringDelegate *p_delegate;
 };
 
 #endif // MAINVIEW_H

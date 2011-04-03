@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     pdfwriter.cpp \
     mainview.cpp \
     namesmodel.cpp \
-    previewwidget.cpp
+    previewwidget.cpp \
+    stringdelegate.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -24,7 +25,8 @@ HEADERS += \
     pdfwriter.h \
     mainview.h \
     namesmodel.h \
-    previewwidget.h
+    previewwidget.h \
+    stringdelegate.h
 
 RESOURCES += \
     resources.qrc

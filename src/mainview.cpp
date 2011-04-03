@@ -2,6 +2,7 @@
 #include "namesmodel.h"
 #include "nameparser.h"
 #include "previewwidget.h"
+#include "stringdelegate.h"
 
 #include <QTableView>
 #include <QHBoxLayout>
@@ -15,6 +16,8 @@ MainView::MainView(QWidget *parent) :
     p_table->setAlternatingRowColors(true);
     p_table->horizontalHeader()->setStretchLastSection(true);
     p_table->setModel(p_model);
+    p_delegate = new StringDelegate;
+    p_table->setItemDelegate(p_delegate);
 
     p_preview = new PreviewWidget;
 
