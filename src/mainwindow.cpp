@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "mainview.h"
 #include "nameparser.h"
+#include "namesmodel.h"
 
 #include <QMenu>
 #include <QMenuBar>
@@ -17,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // menu
     p_fileMenu = menuBar()->addMenu(tr("&File"));
 
-    p_readNamesAction = new QAction(tr("Read file"), this);
+    p_readNamesAction = new QAction(tr("Import from file.."), this);
     p_fileMenu->addAction(p_readNamesAction);
     connect(p_readNamesAction, SIGNAL(triggered()),
             this, SLOT(readNamesTriggered()));
@@ -39,6 +40,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     p_fileMenu->addSeparator();
 
+    p_addRowAction = new QAction(tr("Add row"), this);
+    p_fileMenu->addAction(p_addRowAction);
+    connect(p_addRowAction, SIGNAL(triggered()),
+            this, SLOT(addRowTriggered()));
+
+    p_fileMenu->addSeparator();
+
     p_quitAction = new QAction(tr("Quit"), this);
     connect(p_quitAction, SIGNAL(triggered()),
             qApp, SLOT(quit()));
@@ -46,7 +54,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // toolbar
     p_toolBar = addToolBar(tr("actions"));
-    p_toolBar->addAction(p_readNamesAction);
+    //p_toolBar->addAction(p_readNamesAction);
+    p_toolBar->addAction(p_addRowAction);
+    p_toolBar->addAction(p_createPdfAction);
+    p_toolBar->addAction(p_createPdfFromSelectedAction);
 
     p_mainView = new MainView;
     setCentralWidget(p_mainView);
@@ -80,4 +91,9 @@ void MainWindow::appendNameTriggered()
 void MainWindow::createSelectedPdfTriggered()
 {
     p_mainView->sendSelectedNamesToCreator();
+}
+
+void MainWindow::addRowTriggered()
+{
+    NamesModel::instance()->insertRow(NamesModel::instance()->contents().count());
 }

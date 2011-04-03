@@ -118,3 +118,16 @@ QList<QPair<QString,QString> > NamesModel::contents() const
 {
     return m_content;
 }
+
+bool NamesModel::insertRows(int row, int count, const QModelIndex &parent)
+{
+    beginInsertRows(parent, row, row + count - 1);
+
+    for(int i = 0; i < count; i++) {
+        QPair<QString,QString> pair("","");
+        m_content.append(pair);
+    }
+    endInsertRows();
+
+    return true;
+}
