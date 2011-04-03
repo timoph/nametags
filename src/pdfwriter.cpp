@@ -53,7 +53,7 @@ void PdfWriter::printTags()
     else {
         image.load(":/pics/summit-fi.jpg");
     }
-    if(image.isNull()) qDebug() << "perkele";
+
     QPainter painter;
     painter.begin(&printer);
     QFont firstNameFont = painter.font();
@@ -75,7 +75,6 @@ void PdfWriter::printTags()
     for(int i = 0; i < m_content.count(); i++) {
         // first name
         painter.setFont(firstNameFont);
-        painter.setBrush(Qt::black);
         painter.drawImage(upperHalf, image, image.rect());
         painter.drawText(upperFirstNameRect, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
 
@@ -89,13 +88,10 @@ void PdfWriter::printTags()
             painter.drawImage(lowerHalf, image);
             // first name
             painter.setFont(firstNameFont);
-            //painter.drawText(QRect(0, 100, 100, 100), m_content.at(i).first);
             painter.drawText(lowerFirstNameRect, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
             // last name
             painter.setFont(lastNameFont);
             painter.drawText(lowerLastNameRect, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
-
-            //painter.drawText(QRect(0, 174, 100, 100), m_content.at(i).second);
         }
 
         // next page if needed
