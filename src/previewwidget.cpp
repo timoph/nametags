@@ -8,7 +8,7 @@ PreviewWidget::PreviewWidget(QWidget *parent) :
     QWidget(parent)
 {
     p_qmlView = new QDeclarativeView();
-    p_qmlView->setSource(QUrl::fromLocalFile("src/preview.qml"));
+    p_qmlView->setSource(QUrl("qrc:/preview.qml"));
     p_qmlView->setResizeMode(QDeclarativeView::SizeRootObjectToView);
 
     p_rootObject = p_qmlView->rootObject();

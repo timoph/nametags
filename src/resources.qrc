@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>pics/summit-fi.jpg</file>
+        <file>preview.qml</file>
     </qresource>
 </RCC>
