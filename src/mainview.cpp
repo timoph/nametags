@@ -3,8 +3,8 @@
 #include "nameparser.h"
 #include "previewwidget.h"
 #include "stringdelegate.h"
+#include "tableview.h"
 
-#include <QTableView>
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QFileDialog>
@@ -16,8 +16,8 @@
 MainView::MainView(QWidget *parent) :
     QWidget(parent)
 {
-    p_model = new NamesModel;
-    p_table = new QTableView;
+    p_model = NamesModel::instance();
+    p_table = new TableView;
     p_table->setAlternatingRowColors(true);
     p_table->horizontalHeader()->setStretchLastSection(true);
     p_table->setModel(p_model);
@@ -87,4 +87,16 @@ void MainView::saveInTxtFile()
     out << output;
 
     file.close();
+}
+
+void MainView::sendAllNamesToCreator()
+{
+    qDebug() << p_model->contents().count() << " name tags needs to be created";
+    //p_pdfCreator->create(p_model->contents(), image);
+}
+
+void MainView::sendSelectedNamesToCreator()
+{
+    qDebug() << p_table->selectedContent().count() << " name tags needs to be created";
+    //p_pdfCreator->create(p_table->selectedContent(), image);
 }

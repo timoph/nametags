@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QModelIndex>
 
-class QTableView;
+class TableView;
 class QHBoxLayout;
 class NamesModel;
 class PreviewWidget;
@@ -16,6 +16,8 @@ class MainView : public QWidget
 public:
     explicit MainView(QWidget *parent = 0);
     void saveInTxtFile();
+    void sendAllNamesToCreator();
+    void sendSelectedNamesToCreator();
 
 signals:
 
@@ -24,7 +26,7 @@ public slots:
 
 private:
     NamesModel *p_model;
-    QTableView *p_table;
+    TableView *p_table;
     QHBoxLayout *p_hboxLayout;
     PreviewWidget *p_preview;
     StringDelegate *p_delegate;

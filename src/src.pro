@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     mainview.cpp \
     namesmodel.cpp \
     previewwidget.cpp \
-    stringdelegate.cpp
+    stringdelegate.cpp \
+    tableview.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -26,7 +27,8 @@ HEADERS += \
     mainview.h \
     namesmodel.h \
     previewwidget.h \
-    stringdelegate.h
+    stringdelegate.h \
+    tableview.h
 
 RESOURCES += \
     resources.qrc

@@ -64,7 +64,7 @@ void MainWindow::readNamesTriggered()
 
 void MainWindow::createPdfTriggered()
 {
-    qDebug() << "not implemented yet";
+    p_mainView->sendAllNamesToCreator();
 }
 
 void MainWindow::saveListTriggered()
@@ -79,5 +79,5 @@ void MainWindow::appendNameTriggered()
 
 void MainWindow::createSelectedPdfTriggered()
 {
-    qDebug() << "not implemented yet";
+    p_mainView->sendSelectedNamesToCreator();
 }

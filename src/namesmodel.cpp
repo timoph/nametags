@@ -1,8 +1,23 @@
 #include "namesmodel.h"
 
+#include <QItemSelection>
+
+#include <QDebug>
+
+NamesModel *NamesModel::p_instance = 0;
+
 NamesModel::NamesModel(QObject *parent) :
     QAbstractTableModel(parent)
 {
+}
+
+NamesModel *NamesModel::instance()
+{
+    if(!p_instance) {
+        p_instance = new NamesModel;
+    }
+
+    return p_instance;
 }
 
 int NamesModel::rowCount(const QModelIndex &parent) const

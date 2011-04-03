@@ -7,7 +7,7 @@ class NamesModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit NamesModel(QObject *parent = 0);
+    static NamesModel *instance();
     int rowCount(const QModelIndex &parent) const;
     int columnCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
@@ -22,7 +22,9 @@ public slots:
     void setContent(const QList<QPair<QString,QString> > &content);
 
 private:
+    explicit NamesModel(QObject *parent = 0);
     QList<QPair<QString,QString> > m_content;
+    static NamesModel *p_instance;
 };
 
 #endif // NAMESMODEL_H
