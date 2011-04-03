@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
     // menu
-    p_fileMenu = menuBar()->addMenu(tr("&file"));
+    p_fileMenu = menuBar()->addMenu(tr("&File"));
 
     p_readNamesAction = new QAction(tr("Read file"), this);
     p_fileMenu->addAction(p_readNamesAction);
@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(saveListTriggered()));
 
     p_createPdfAction = new QAction(tr("Create PDFs"), this);
+    p_fileMenu->addAction(p_createPdfAction);
     connect(p_createPdfAction, SIGNAL(triggered()),
             this, SLOT(createPdfTriggered()));
 
@@ -38,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     p_fileMenu->addSeparator();
 
-    p_quitAction = new QAction(tr("quit"), this);
+    p_quitAction = new QAction(tr("Quit"), this);
     connect(p_quitAction, SIGNAL(triggered()),
             qApp, SLOT(quit()));
     p_fileMenu->addAction(p_quitAction);
@@ -46,9 +47,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // toolbar
     p_toolBar = addToolBar(tr("actions"));
     p_toolBar->addAction(p_readNamesAction);
-
-    // disable some action in the start
-    p_createPdfAction->setEnabled(false);
 
     p_mainView = new MainView;
     setCentralWidget(p_mainView);
