@@ -8,6 +8,7 @@
 #include <QImage>
 #include <QSize>
 #include <QFont>
+#include <QPixmap>
 
 PdfWriter::PdfWriter(QObject *parent) :
     QThread(parent)
@@ -38,7 +39,7 @@ void PdfWriter::printTags()
     QPrinter printer;
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setPaperSize(QPrinter::A4);
-    printer.setResolution(QPrinter::HighResolution);
+    //printer.setResolution(QPrinter::HighResolution);
 
     //this could be asked from the user..
     printer.setOutputFileName(QString("%1/nametags-%2.pdf")
@@ -52,6 +53,7 @@ void PdfWriter::printTags()
     else {
         image.load(":/pics/summit-fi.jpg");
     }
+    if(image.isNull()) qDebug() << "perkele";
     QPainter painter;
     painter.begin(&printer);
     QFont firstNameFont = painter.font();
@@ -60,29 +62,34 @@ void PdfWriter::printTags()
     QFont lastNameFont = painter.font();
     lastNameFont.setPointSize(48);
 
+    QRectF upperHalf(0, 0, printer.pageRect().width(), printer.pageRect().height() / 2);
+    QRectF lowerHalf(0, printer.pageRect().height() / 2, printer.pageRect().width(), printer.pageRect().height() / 2);
+
     painter.setPen(Qt::black);
     for(int i = 0; i < m_content.count(); i++) {
         // first name
-        //painter.drawImage(0,0, image);
         painter.setFont(firstNameFont);
-        painter.drawText(QRect(0, 0, 100, 100), m_content.at(i).first);
+        painter.setBrush(Qt::black);
+        painter.drawImage(upperHalf, image, image.rect());
+        //painter.drawText(QRect(0, 0, 100, 100), m_content.at(i).first);
 
         // last name
         painter.setFont(lastNameFont);
-        painter.drawText(QRect(0, 74, 100, 100), m_content.at(i).second);
+        painter.drawImage(lowerHalf, image);
+        //painter.drawText(QRect(0, 74, 100, 100), m_content.at(i).second);
 
         // second name tag to the page if needed
         if(i+1 < m_content.count()) {
             i++;
             // first name
-            //painter.setBackground(QBrush(image));
-            //painter.drawImage(0,0, image);
             painter.setFont(firstNameFont);
-            painter.drawText(QRect(0, 100, 100, 100), m_content.at(i).first);
+            painter.drawImage(upperHalf, image);
+            //painter.drawText(QRect(0, 100, 100, 100), m_content.at(i).first);
 
             // last name
             painter.setFont(lastNameFont);
-            painter.drawText(QRect(0, 174, 100, 100), m_content.at(i).second);
+            painter.drawImage(lowerHalf, image);
+            //painter.drawText(QRect(0, 174, 100, 100), m_content.at(i).second);
         }
 
         // next page if needed
