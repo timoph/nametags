@@ -66,9 +66,11 @@ void PdfWriter::printTags()
     qreal w = (upperHalf.width()/2);
     qreal h = (upperHalf.height()/2);
     QRectF upperFirstNameRect (w, h + h/3, w, h/3);
-    QRectF upperLastNameRect (w, h + h/3, w, 2*h/3);
-    QRectF lowerHalf(0, printer.pageRect().height() / 2, printer.pageRect().width(), printer.pageRect().height() / 2);
+    QRectF upperLastNameRect (w, h + 2*h/3, w, h/3);
 
+    QRectF lowerHalf(0, printer.pageRect().height() / 2, printer.pageRect().width(), printer.pageRect().height() / 2);
+    QRectF lowerFirstNameRect (w, upperHalf.height() + h + h/3, w, h/3);
+    QRectF lowerLastNameRect (w, upperHalf.height() + h + 2*h/3, w, h/3);
     painter.setPen(Qt::black);
     for(int i = 0; i < m_content.count(); i++) {
         // first name
@@ -79,20 +81,20 @@ void PdfWriter::printTags()
 
         // last name
         painter.setFont(lastNameFont);
-        painter.drawImage(lowerHalf, image);
-        painter.drawText(upperLastNameRect, Qt::AlignCenter, m_content.at(i).second);
+        painter.drawText(upperLastNameRect, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
 
         // second name tag to the page if needed
         if(i+1 < m_content.count()) {
             i++;
+            painter.drawImage(lowerHalf, image);
             // first name
             painter.setFont(firstNameFont);
-            painter.drawImage(upperHalf, image);
             //painter.drawText(QRect(0, 100, 100, 100), m_content.at(i).first);
-
+            painter.drawText(lowerFirstNameRect, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
             // last name
             painter.setFont(lastNameFont);
-            painter.drawImage(lowerHalf, image);
+            painter.drawText(lowerLastNameRect, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
+
             //painter.drawText(QRect(0, 174, 100, 100), m_content.at(i).second);
         }
 
