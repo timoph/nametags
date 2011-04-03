@@ -73,7 +73,7 @@ void NameParser::parseContent(const QStringList &content)
             continue;
         }
         else {
-            names.append(QPair<QString,QString>(l.at(0), l.at(1)));
+            names.append(QPair<QString,QString>(l.at(0).trimmed(), l.at(1).trimmed()));
         }
     }
 
