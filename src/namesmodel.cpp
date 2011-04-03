@@ -82,6 +82,26 @@ QVariant NamesModel::headerData(int section, Qt::Orientation orientation, int ro
 
 bool NamesModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    if(role != Qt::EditRole) {
+        return false;
+    }
+    else {
+        //qDebug() << __PRETTY_FUNCTION__;
+        QPair<QString,QString> pair = m_content.at(index.row());
+        if(index.column() == 0) {
+            pair.first = value.toString();
+            m_content[index.row()] = pair;
+            return true;
+        }
+        else if(index.column() == 1) {
+            pair.second = value.toString();
+            m_content[index.row()] = pair;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     return false;
 }
 
