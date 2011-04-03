@@ -2,6 +2,7 @@
 #define MAINVIEW_H
 
 #include <QWidget>
+#include <QModelIndex>
 
 class QTableView;
 class QHBoxLayout;
@@ -14,11 +15,12 @@ class MainView : public QWidget
     Q_OBJECT
 public:
     explicit MainView(QWidget *parent = 0);
+    void saveInTxtFile();
 
 signals:
 
 public slots:
-    void updateSampleTag();
+    void updateSampleTag(const QModelIndex &index);
 
 private:
     NamesModel *p_model;

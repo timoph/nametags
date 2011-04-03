@@ -7,6 +7,11 @@
 #include <QTableView>
 #include <QHBoxLayout>
 #include <QHeaderView>
+#include <QFileDialog>
+#include <QFile>
+#include <QTextStream>
+
+#include <QDebug>
 
 MainView::MainView(QWidget *parent) :
     QWidget(parent)
@@ -29,9 +34,53 @@ MainView::MainView(QWidget *parent) :
 
     connect(NameParser::instance(), SIGNAL(namesRead(QList<QPair<QString,QString> >)),
             p_model, SLOT(setContent(QList<QPair<QString,QString> >)), Qt::DirectConnection);
+
+    connect(p_table, SIGNAL(entered(QModelIndex)),
+            this, SLOT(updateSampleTag(QModelIndex)));
 }
 
-void MainView::updateSampleTag()
+void MainView::updateSampleTag(const QModelIndex &index)
 {
+    qDebug() << p_model->data(index, Qt::DisplayRole).toStringList();
+}
 
+void MainView::saveInTxtFile()
+{
+    int rows = p_model->rowCount(QModelIndex());
+
+    if(rows < 1) {
+        qDebug() << "empty model at " << __PRETTY_FUNCTION__;
+        return;
+    }
+
+    QList<QPair<QString,QString> > content = p_model->contents();
+
+    QString fileName = NameParser::instance()->fileName();
+
+    // in case no file has been opened
+    if(fileName.isEmpty()) {
+        fileName = QFileDialog::getSaveFileName(this, tr("Save as.."), QDir::homePath());
+    }
+
+    QFile file(fileName);
+    if(!file.open(QFile::WriteOnly)) {
+        qDebug() << "failed to open file for writing at " << __PRETTY_FUNCTION__;
+        return;
+    }
+
+    QTextStream out(&file);
+    QString sep = NameParser::instance()->separator();
+
+    // this could be done in a better way
+    QString output = "";
+    for(int i = 0; i < content.count(); i++) {
+        output.append(QString("%1%2%3\n")
+                .arg(content.at(i).first)
+                .arg(sep)
+                .arg(content.at(i).second));
+    }
+
+    out << output;
+
+    file.close();
 }

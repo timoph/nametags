@@ -19,6 +19,8 @@ signals:
 public slots:
     void readNamesTriggered();
     void createPdfTriggered();
+    void saveListTriggered();
+    void appendNameTriggered();
 
 private:
     QMenu *p_fileMenu;
@@ -26,6 +28,8 @@ private:
     QAction *p_quitAction;
     QAction *p_createPdfAction;
     QAction *p_readNamesAction;
+    QAction *p_saveListAction;
+    QAction *p_appendNameAction;
     MainView *p_mainView;
 };
 

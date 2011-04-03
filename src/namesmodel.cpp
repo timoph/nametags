@@ -78,3 +78,8 @@ Qt::ItemFlags NamesModel::flags(const QModelIndex &index) const
 
     return !Qt::ItemIsEnabled;
 }
+
+QList<QPair<QString,QString> > NamesModel::contents() const
+{
+    return m_content;
+}

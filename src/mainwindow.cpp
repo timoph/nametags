@@ -14,6 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     // menu
     p_fileMenu = menuBar()->addMenu(tr("&file"));
+
+    p_saveListAction = new QAction(tr("Save.."), this);
+    p_fileMenu->addAction(p_saveListAction);
+    connect(p_saveListAction, SIGNAL(triggered()),
+            this, SLOT(saveListTriggered()));
+
+    p_fileMenu->addSeparator();
+
     p_quitAction = new QAction(tr("quit"), this);
     connect(p_quitAction, SIGNAL(triggered()),
             qApp, SLOT(quit()));
@@ -45,6 +53,16 @@ void MainWindow::readNamesTriggered()
 }
 
 void MainWindow::createPdfTriggered()
+{
+
+}
+
+void MainWindow::saveListTriggered()
+{
+    p_mainView->saveInTxtFile();
+}
+
+void MainWindow::appendNameTriggered()
 {
 
 }

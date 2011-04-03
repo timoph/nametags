@@ -94,3 +94,8 @@ void NameParser::run()
 {
     readNamesFile();
 }
+
+QString NameParser::fileName() const
+{
+    return m_fileName;
+}

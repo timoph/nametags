@@ -12,6 +12,7 @@ public:
     static NameParser *instance();
     void readNames(const QString &file);
     QString separator() const;
+    QString fileName() const;
 
 signals:
     void namesRead(const QList<QPair<QString, QString> > &names);
