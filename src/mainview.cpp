@@ -4,6 +4,7 @@
 #include "previewwidget.h"
 #include "stringdelegate.h"
 #include "tableview.h"
+#include "pdfwriter.h"
 
 #include <QHBoxLayout>
 #include <QHeaderView>
@@ -16,6 +17,7 @@
 MainView::MainView(QWidget *parent) :
     QWidget(parent)
 {
+    m_picture = "pics/summit-fi.jpg";
     p_model = NamesModel::instance();
     p_table = new TableView;
     p_table->setAlternatingRowColors(true);
@@ -33,6 +35,8 @@ MainView::MainView(QWidget *parent) :
     p_hboxLayout->addWidget(p_preview, 5);
 
     setLayout(p_hboxLayout);
+
+    p_pdfCreator = new PdfWriter(this);
 
     connect(NameParser::instance(), SIGNAL(namesRead(QList<QPair<QString,QString> >)),
             p_model, SLOT(setContent(QList<QPair<QString,QString> >)), Qt::DirectConnection);
@@ -92,11 +96,24 @@ void MainView::saveInTxtFile()
 void MainView::sendAllNamesToCreator()
 {
     qDebug() << p_model->contents().count() << " name tags needs to be created";
-    //p_pdfCreator->create(p_model->contents(), image);
+    p_pdfCreator->create(p_model->contents(), m_picture);
 }
 
 void MainView::sendSelectedNamesToCreator()
 {
     qDebug() << p_table->selectedContent().count() << " name tags needs to be created";
-    //p_pdfCreator->create(p_table->selectedContent(), image);
+    p_pdfCreator->create(p_table->selectedContent(), m_picture);
+}
+
+void MainView::setPicture(const QString &file)
+{
+    if(file != m_picture) {
+        p_preview->setPicture(file);
+        m_picture = file;
+    }
+}
+
+QString MainView::picture() const
+{
+    return m_picture;
 }

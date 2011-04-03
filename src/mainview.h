@@ -9,6 +9,7 @@ class QHBoxLayout;
 class NamesModel;
 class PreviewWidget;
 class StringDelegate;
+class PdfWriter;
 
 class MainView : public QWidget
 {
@@ -18,6 +19,8 @@ public:
     void saveInTxtFile();
     void sendAllNamesToCreator();
     void sendSelectedNamesToCreator();
+    void setPicture(const QString &file);
+    QString picture() const;
 
 signals:
 
@@ -30,6 +33,9 @@ private:
     QHBoxLayout *p_hboxLayout;
     PreviewWidget *p_preview;
     StringDelegate *p_delegate;
+    PdfWriter *p_pdfCreator;
+
+    QString m_picture;
 };
 
 #endif // MAINVIEW_H

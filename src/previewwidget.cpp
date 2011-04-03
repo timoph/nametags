@@ -1,6 +1,5 @@
 #include "previewwidget.h"
 
-#include <QFile>
 #include <QVBoxLayout>
 #include <QDeclarativeView>
 #include <QGraphicsObject>
@@ -22,7 +21,10 @@ PreviewWidget::PreviewWidget(QWidget *parent) :
 
 void PreviewWidget::setPicture(const QString &file)
 {
-
+    QObject *bg = p_rootObject->findChild<QObject *>("bgimage");
+    if(bg) {
+        bg->setProperty("source", file);
+    }
 }
 
 void PreviewWidget::setNameText(const QString &first, const QString &last)

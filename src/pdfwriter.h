@@ -2,6 +2,7 @@
 #define PDFWRITER_H
 
 #include <QObject>
+#include <QPair>
 
 class PdfWriter : public QObject
 {
@@ -12,6 +13,7 @@ public:
 signals:
 
 public slots:
+    void create(const QList<QPair<QString,QString> > &content, const QString &image);
 
 };
 

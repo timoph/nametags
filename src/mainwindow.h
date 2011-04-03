@@ -23,6 +23,7 @@ public slots:
     void appendNameTriggered();
     void createSelectedPdfTriggered();
     void addRowTriggered();
+    void selectPictureTriggered();
 
 private:
     QMenu *p_fileMenu;
@@ -34,6 +35,7 @@ private:
     QAction *p_appendNameAction;
     QAction *p_createPdfFromSelectedAction;
     QAction *p_addRowAction;
+    QAction *p_selectPictureAction;
     MainView *p_mainView;
 };
 

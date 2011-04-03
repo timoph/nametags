@@ -23,6 +23,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(p_readNamesAction, SIGNAL(triggered()),
             this, SLOT(readNamesTriggered()));
 
+    p_selectPictureAction = new QAction(tr("Select picture.."), this);
+    p_fileMenu->addAction(p_selectPictureAction);
+    connect(p_selectPictureAction, SIGNAL(triggered()),
+            this, SLOT(selectPictureTriggered()));
+
     p_saveListAction = new QAction(tr("Save.."), this);
     p_fileMenu->addAction(p_saveListAction);
     connect(p_saveListAction, SIGNAL(triggered()),
@@ -96,4 +101,13 @@ void MainWindow::createSelectedPdfTriggered()
 void MainWindow::addRowTriggered()
 {
     NamesModel::instance()->insertRow(NamesModel::instance()->contents().count());
+}
+
+void MainWindow::selectPictureTriggered()
+{
+    QString file = QFileDialog::getOpenFileName(this, tr("Select names file"),
+                                 QDir::homePath(),
+                                 "Images (*.jpg *.png *.bmp)");
+
+    p_mainView->setPicture(file);
 }

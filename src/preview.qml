@@ -4,6 +4,7 @@ Rectangle {
     width: 105*4
     height: 74*4
     Image {
+        objectName: "bgimage"
         id: preview
         width: parent.width
         height: parent.height
