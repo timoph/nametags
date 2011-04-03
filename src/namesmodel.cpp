@@ -73,7 +73,7 @@ bool NamesModel::setData(const QModelIndex &index, const QVariant &value, int ro
 Qt::ItemFlags NamesModel::flags(const QModelIndex &index) const
 {
     if(index.isValid()) {
-        return Qt::ItemIsEditable | Qt::ItemIsEnabled;
+        return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     }
 
     return !Qt::ItemIsEnabled;

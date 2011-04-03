@@ -12,6 +12,7 @@ Rectangle {
     }
 
     Text {
+        objectName: "firstname"
         id: first
         text: "Etunimi"
         font.pixelSize: preview.height/8
@@ -22,6 +23,7 @@ Rectangle {
     }
 
     Text {
+        objectName: "lastname"
         id: last
         text: "Von Sukunimi"
         font.pixelSize: preview.height/18

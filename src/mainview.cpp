@@ -23,6 +23,8 @@ MainView::MainView(QWidget *parent) :
     p_table->setModel(p_model);
     p_delegate = new StringDelegate;
     p_table->setItemDelegate(p_delegate);
+    p_table->setSelectionMode(QTableView::ExtendedSelection);
+    p_table->setSelectionBehavior(QTableView::SelectRows);
 
     p_preview = new PreviewWidget;
 
@@ -35,13 +37,15 @@ MainView::MainView(QWidget *parent) :
     connect(NameParser::instance(), SIGNAL(namesRead(QList<QPair<QString,QString> >)),
             p_model, SLOT(setContent(QList<QPair<QString,QString> >)), Qt::DirectConnection);
 
-    connect(p_table, SIGNAL(entered(QModelIndex)),
+    connect(p_table, SIGNAL(clicked(QModelIndex)),
             this, SLOT(updateSampleTag(QModelIndex)));
 }
 
 void MainView::updateSampleTag(const QModelIndex &index)
 {
-    qDebug() << p_model->data(index, Qt::DisplayRole).toStringList();
+    //qDebug() << p_model->data(index, Qt::DisplayRole).toString();
+    //qDebug() << p_model->contents().at(index.row()).first << " " << p_model->contents().at(index.row()).second;
+    p_preview->setNameText(p_model->contents().at(index.row()).first, p_model->contents().at(index.row()).second);
 }
 
 void MainView::saveInTxtFile()

@@ -21,6 +21,7 @@ public slots:
     void createPdfTriggered();
     void saveListTriggered();
     void appendNameTriggered();
+    void createSelectedPdfTriggered();
 
 private:
     QMenu *p_fileMenu;
@@ -30,6 +31,7 @@ private:
     QAction *p_readNamesAction;
     QAction *p_saveListAction;
     QAction *p_appendNameAction;
+    QAction *p_createPdfFromSelectedAction;
     MainView *p_mainView;
 };
 

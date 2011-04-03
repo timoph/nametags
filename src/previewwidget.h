@@ -5,6 +5,7 @@
 
 class QDeclarativeView;
 class QVBoxLayout;
+class QGraphicsObject;
 
 class PreviewWidget : public QWidget
 {
@@ -12,6 +13,7 @@ class PreviewWidget : public QWidget
 public:
     explicit PreviewWidget(QWidget *parent = 0);
     QSize sizeHint();
+    void setNameText(const QString &first, const QString &last);
 
 signals:
 
@@ -21,6 +23,7 @@ public slots:
 private:
     QDeclarativeView *p_qmlView;
     QVBoxLayout *p_vbox;
+    QGraphicsObject *p_rootObject;
 };
 
 #endif // PREVIEWWIDGET_H
