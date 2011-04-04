@@ -24,9 +24,12 @@ public slots:
     void createSelectedPdfTriggered();
     void addRowTriggered();
     void selectPictureTriggered();
+    void toggleToolBarVisible(bool visible);
 
 private:
     QMenu *p_fileMenu;
+    QMenu *p_editMenu;
+    QMenu *p_tagsMenu;
     QToolBar *p_toolBar;
     QAction *p_quitAction;
     QAction *p_createPdfAction;
@@ -36,6 +39,7 @@ private:
     QAction *p_createPdfFromSelectedAction;
     QAction *p_addRowAction;
     QAction *p_selectPictureAction;
+    QAction *p_toolBarVisibleAction;
     MainView *p_mainView;
 };
 

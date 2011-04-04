@@ -15,7 +15,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-    // menu
+    // file menu
     p_fileMenu = menuBar()->addMenu(tr("&File"));
 
     p_readNamesAction = new QAction(tr("Import from file.."), this);
@@ -23,32 +23,19 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(p_readNamesAction, SIGNAL(triggered()),
             this, SLOT(readNamesTriggered()));
 
-    p_selectPictureAction = new QAction(tr("Select picture.."), this);
-    p_fileMenu->addAction(p_selectPictureAction);
-    connect(p_selectPictureAction, SIGNAL(triggered()),
-            this, SLOT(selectPictureTriggered()));
-
     p_saveListAction = new QAction(tr("Save.."), this);
     p_fileMenu->addAction(p_saveListAction);
     connect(p_saveListAction, SIGNAL(triggered()),
             this, SLOT(saveListTriggered()));
 
-    p_createPdfAction = new QAction(tr("Create PDFs"), this);
-    p_fileMenu->addAction(p_createPdfAction);
-    connect(p_createPdfAction, SIGNAL(triggered()),
-            this, SLOT(createPdfTriggered()));
-
-    p_createPdfFromSelectedAction = new QAction(tr("Create PDFs from selected"), this);
-    p_fileMenu->addAction(p_createPdfFromSelectedAction);
-    connect(p_createPdfFromSelectedAction, SIGNAL(triggered()),
-            this, SLOT(createSelectedPdfTriggered()));
-
     p_fileMenu->addSeparator();
 
-    p_addRowAction = new QAction(tr("Add row"), this);
-    p_fileMenu->addAction(p_addRowAction);
-    connect(p_addRowAction, SIGNAL(triggered()),
-            this, SLOT(addRowTriggered()));
+    p_toolBarVisibleAction = new QAction(tr("Show toolbar"), this);
+    p_toolBarVisibleAction->setCheckable(true);
+    p_toolBarVisibleAction->setChecked(true);
+    p_fileMenu->addAction(p_toolBarVisibleAction);
+    connect(p_toolBarVisibleAction, SIGNAL(toggled(bool)),
+            this, SLOT(toggleToolBarVisible(bool)));
 
     p_fileMenu->addSeparator();
 
@@ -57,12 +44,39 @@ MainWindow::MainWindow(QWidget *parent) :
             qApp, SLOT(quit()));
     p_fileMenu->addAction(p_quitAction);
 
+    // edit menu
+    p_editMenu = menuBar()->addMenu(tr("&Edit"));
+
+    p_addRowAction = new QAction(tr("Add row"), this);
+    p_editMenu->addAction(p_addRowAction);
+    connect(p_addRowAction, SIGNAL(triggered()),
+            this, SLOT(addRowTriggered()));
+
+    p_selectPictureAction = new QAction(tr("Select picture.."), this);
+    p_editMenu->addAction(p_selectPictureAction);
+    connect(p_selectPictureAction, SIGNAL(triggered()),
+            this, SLOT(selectPictureTriggered()));
+
+    // tags menu
+    p_tagsMenu = menuBar()->addMenu(tr("&Name tags"));
+
+    p_createPdfAction = new QAction(tr("Create PDFs"), this);
+    p_tagsMenu->addAction(p_createPdfAction);
+    connect(p_createPdfAction, SIGNAL(triggered()),
+            this, SLOT(createPdfTriggered()));
+
+    p_createPdfFromSelectedAction = new QAction(tr("Create PDFs from selected"), this);
+    p_tagsMenu->addAction(p_createPdfFromSelectedAction);
+    connect(p_createPdfFromSelectedAction, SIGNAL(triggered()),
+            this, SLOT(createSelectedPdfTriggered()));
+
     // toolbar
     p_toolBar = addToolBar(tr("actions"));
     //p_toolBar->addAction(p_readNamesAction);
     p_toolBar->addAction(p_addRowAction);
     p_toolBar->addAction(p_createPdfAction);
     p_toolBar->addAction(p_createPdfFromSelectedAction);
+    //p_toolBar->setVisible(false);
 
     p_mainView = new MainView;
     setCentralWidget(p_mainView);
@@ -110,4 +124,9 @@ void MainWindow::selectPictureTriggered()
                                  "Images (*.jpg *.png *.bmp)");
 
     p_mainView->setPicture(file);
+}
+
+void MainWindow::toggleToolBarVisible(bool visible)
+{
+    p_toolBar->setVisible(visible);
 }
