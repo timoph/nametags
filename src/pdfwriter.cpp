@@ -14,9 +14,10 @@ PdfWriter::PdfWriter(QObject *parent) :
     QThread(parent)
 {
     m_image = "";
+    m_output = "";
 }
 
-void PdfWriter::create(const QList<QPair<QString, QString> > &content, const QString &image)
+void PdfWriter::create(const QList<QPair<QString, QString> > &content, const QString &image, const QString &outPut)
 {
     if(content.isEmpty()) {
         qDebug() << "empty list at" << __PRETTY_FUNCTION__;
@@ -25,6 +26,7 @@ void PdfWriter::create(const QList<QPair<QString, QString> > &content, const QSt
 
     m_content = content;
     m_image = image;
+    m_output = outPut;
 
     start();
 }
@@ -40,11 +42,7 @@ void PdfWriter::printTags()
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setPaperSize(QPrinter::A4);
     //printer.setResolution(QPrinter::HighResolution);
-
-    //this could be asked from the user..
-    printer.setOutputFileName(QString("%1/nametags-%2.pdf")
-                              .arg(QDir::homePath())
-                              .arg(QDateTime::currentDateTime().toString("yyyyMMddhhmm")));
+    printer.setOutputFileName(m_output);
 
     QImage image;
     if(QFile::exists(m_image)) {
@@ -102,5 +100,7 @@ void PdfWriter::printTags()
 
     painter.end();
 
+    m_output = "";
+    m_image = "";
     emit printingFinished();
 }

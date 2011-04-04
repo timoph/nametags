@@ -21,6 +21,7 @@ public:
     void sendSelectedNamesToCreator();
     void setPicture(const QString &file);
     QString picture() const;
+    QString getSaveFileName();
 
 signals:
 

@@ -96,13 +96,21 @@ void MainView::saveInTxtFile()
 void MainView::sendAllNamesToCreator()
 {
     qDebug() << p_model->contents().count() << " name tags needs to be created";
-    p_pdfCreator->create(p_model->contents(), m_picture);
+
+    QString destFile = getSaveFileName();
+    if(!destFile.isEmpty()) {
+        p_pdfCreator->create(p_model->contents(), m_picture, destFile);
+    }
 }
 
 void MainView::sendSelectedNamesToCreator()
 {
     qDebug() << p_table->selectedContent().count() << " name tags needs to be created";
-    p_pdfCreator->create(p_table->selectedContent(), m_picture);
+
+    QString destFile = getSaveFileName();
+    if(!destFile.isEmpty()) {
+        p_pdfCreator->create(p_table->selectedContent(), m_picture, destFile);
+    }
 }
 
 void MainView::setPicture(const QString &file)
@@ -116,4 +124,14 @@ void MainView::setPicture(const QString &file)
 QString MainView::picture() const
 {
     return m_picture;
+}
+
+QString MainView::getSaveFileName()
+{
+    QString destFile = QFileDialog::getSaveFileName(this, tr("Save as.."), QDir::homePath(), "PDF files (*.pdf)");
+    //destFile = QString("%1/nametags-%2.pdf").arg(QDir::homePath()).arg(QDateTime::currentDateTime().toString("yyyyMMddhhmm"));
+    if(!destFile.isEmpty() && !destFile.toLower().endsWith(".pdf")) {
+        destFile.append(".pdf");
+    }
+    return destFile;
 }

@@ -17,7 +17,7 @@ protected:
     void run();
 
 public slots:
-    void create(const QList<QPair<QString,QString> > &content, const QString &image);
+    void create(const QList<QPair<QString,QString> > &content, const QString &image, const QString &outPut);
 
 private:
     void printTags();
@@ -25,6 +25,7 @@ private:
 private:
     QList<QPair<QString,QString> > m_content;
     QString m_image;
+    QString m_output;
 
 };
 
