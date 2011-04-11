@@ -1,0 +1,12 @@
+Source: nametags
+Section: graphics
+Priority: optional
+Maintainer: Timo Härkönen <timop.harkonen@gmail.com>
+Build-Depends: debhelper (>= 5), libqt4-dev (>= 4.7.0)
+Standards-Version: 3.7.2
+
+Package: nametags
+Architecture: any
+Depends: libqt4-core (>= 4.7.0), libqt4-gui (>= 4.7.0), libqt4-declarative (>= 4.7.0)
+Description: Name tag creator
+ Create your tags

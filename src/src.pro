@@ -35,3 +35,11 @@ RESOURCES += \
 
 OTHER_FILES += \
     preview.qml
+
+unix {
+	target.path = /usr/bin/
+	desktop.files += nametags.desktop
+	desktop.path = /usr/share/applications/
+	
+	INSTALLS += target desktop
+}
