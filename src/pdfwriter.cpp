@@ -9,6 +9,7 @@
 #include <QSize>
 #include <QFont>
 #include <QPixmap>
+#include <QFontMetrics>
 
 PdfWriter::PdfWriter(QObject *parent) :
     QThread(parent)
@@ -56,6 +57,7 @@ void PdfWriter::printTags()
     painter.begin(&printer);
     QFont firstNameFont = painter.font();
     firstNameFont.setPointSize(40);
+    QFontMetrics fontMetrics(firstNameFont);
 
     QFont lastNameFont = painter.font();
     lastNameFont.setPointSize(24);
@@ -74,6 +76,9 @@ void PdfWriter::printTags()
         // first name
         painter.setFont(firstNameFont);
         painter.drawImage(upperHalf, image, image.rect());
+        while(fontMetrics.boundingRect(m_content.at(i).first).width() > upperFirstNameRect.width()) {
+            firstNameFont.setPixelSize(firstNameFont.pixelSize() - 2);
+        }
         painter.drawText(upperFirstNameRect, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
 
         // last name
