@@ -7,7 +7,7 @@ TARGET = nametags
 DEPENDPATH += .
 INCLUDEPATH += .
 
-QT += declarative
+QT += core gui declarative
 
 # Input
 SOURCES += main.cpp \

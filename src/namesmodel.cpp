@@ -67,10 +67,10 @@ QVariant NamesModel::headerData(int section, Qt::Orientation orientation, int ro
     }
     else {
         if(section == 0) {
-            return tr("First name");
+            return tr("!!First name");
         }
         else if(section == 1) {
-            return tr("Last name");
+            return tr("!!Last name");
         }
         else {
             return QVariant();
@@ -111,7 +111,7 @@ Qt::ItemFlags NamesModel::flags(const QModelIndex &index) const
         return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     }
 
-    return !Qt::ItemIsEnabled;
+    return Qt::NoItemFlags;
 }
 
 QList<QPair<QString,QString> > NamesModel::contents() const

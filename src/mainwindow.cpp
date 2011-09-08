@@ -18,28 +18,28 @@ MainWindow::MainWindow(QWidget *parent) :
     // file menu
     p_fileMenu = menuBar()->addMenu(tr("&File"));
 
-    p_readNamesAction = new QAction(tr("Import from file.."), this);
+    p_readNamesAction = new QAction(tr("!!Import from file.."), this);
     p_fileMenu->addAction(p_readNamesAction);
     connect(p_readNamesAction, SIGNAL(triggered()),
             this, SLOT(readNamesTriggered()));
 
-    p_saveListAction = new QAction(tr("Save.."), this);
+    p_saveListAction = new QAction(tr("!!Save.."), this);
     p_fileMenu->addAction(p_saveListAction);
     connect(p_saveListAction, SIGNAL(triggered()),
             this, SLOT(saveListTriggered()));
 
     p_fileMenu->addSeparator();
 
-    p_toolBarVisibleAction = new QAction(tr("Show toolbar"), this);
+    p_toolBarVisibleAction = new QAction(tr("!!Show toolbar"), this);
     p_toolBarVisibleAction->setCheckable(true);
-    p_toolBarVisibleAction->setChecked(true);
+    p_toolBarVisibleAction->setChecked(false);
     p_fileMenu->addAction(p_toolBarVisibleAction);
     connect(p_toolBarVisibleAction, SIGNAL(toggled(bool)),
             this, SLOT(toggleToolBarVisible(bool)));
 
     p_fileMenu->addSeparator();
 
-    p_quitAction = new QAction(tr("Quit"), this);
+    p_quitAction = new QAction(tr("!!Quit"), this);
     connect(p_quitAction, SIGNAL(triggered()),
             qApp, SLOT(quit()));
     p_fileMenu->addAction(p_quitAction);
@@ -47,12 +47,12 @@ MainWindow::MainWindow(QWidget *parent) :
     // edit menu
     p_editMenu = menuBar()->addMenu(tr("&Edit"));
 
-    p_addRowAction = new QAction(tr("Add row"), this);
+    p_addRowAction = new QAction(tr("!!Add row"), this);
     p_editMenu->addAction(p_addRowAction);
     connect(p_addRowAction, SIGNAL(triggered()),
             this, SLOT(addRowTriggered()));
 
-    p_selectPictureAction = new QAction(tr("Select picture.."), this);
+    p_selectPictureAction = new QAction(tr("!!Select picture.."), this);
     p_editMenu->addAction(p_selectPictureAction);
     connect(p_selectPictureAction, SIGNAL(triggered()),
             this, SLOT(selectPictureTriggered()));
@@ -60,15 +60,18 @@ MainWindow::MainWindow(QWidget *parent) :
     // tags menu
     p_tagsMenu = menuBar()->addMenu(tr("&Name tags"));
 
-    p_createPdfAction = new QAction(tr("Create PDFs"), this);
+    p_createPdfAction = new QAction(tr("!!Create PDFs"), this);
     p_tagsMenu->addAction(p_createPdfAction);
     connect(p_createPdfAction, SIGNAL(triggered()),
             this, SLOT(createPdfTriggered()));
 
-    p_createPdfFromSelectedAction = new QAction(tr("Create PDFs from selected"), this);
+    p_createPdfFromSelectedAction = new QAction(tr("!!Create PDFs from selected"), this);
     p_tagsMenu->addAction(p_createPdfFromSelectedAction);
     connect(p_createPdfFromSelectedAction, SIGNAL(triggered()),
             this, SLOT(createSelectedPdfTriggered()));
+
+    // checklist for following handed out tags
+    p_createCheckListAction = p_tagsMenu->addAction(tr("!!create checklist"));
 
     // toolbar
     p_toolBar = addToolBar(tr("actions"));
@@ -76,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
     p_toolBar->addAction(p_addRowAction);
     p_toolBar->addAction(p_createPdfAction);
     p_toolBar->addAction(p_createPdfFromSelectedAction);
-    //p_toolBar->setVisible(false);
+    p_toolBar->setVisible(false);
 
     p_mainView = new MainView;
     setCentralWidget(p_mainView);
@@ -85,7 +88,7 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::readNamesTriggered()
 {
     // select file
-    QString file = QFileDialog::getOpenFileName(this, tr("Select names file"),
+    QString file = QFileDialog::getOpenFileName(this, tr("!!Select names file"),
                                  QDir::homePath(),
                                  "Text files (*.txt);;All files (*.*)");
 
@@ -119,7 +122,7 @@ void MainWindow::addRowTriggered()
 
 void MainWindow::selectPictureTriggered()
 {
-    QString file = QFileDialog::getOpenFileName(this, tr("Select names file"),
+    QString file = QFileDialog::getOpenFileName(this, tr("!!Select image file"),
                                  QDir::homePath(),
                                  "Images (*.jpg *.png *.bmp)");
 

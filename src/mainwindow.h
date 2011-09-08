@@ -40,6 +40,7 @@ private:
     QAction *p_addRowAction;
     QAction *p_selectPictureAction;
     QAction *p_toolBarVisibleAction;
+    QAction *p_createCheckListAction;
     MainView *p_mainView;
 };
 

@@ -38,7 +38,7 @@ void NameParser::readNames(const QString &file)
 void NameParser::readNamesFile()
 {
     if(!QFile::exists(m_fileName)) {
-        emit error(tr("Specified file does not exist"));
+        emit error(tr("!!Specified file does not exist"));
         return;
     }
     else {
@@ -53,11 +53,11 @@ void NameParser::readNamesFile()
                 parseContent(content);
             }
             else {
-                emit error(tr("No content found from the specified file"));
+                emit error(tr("!!No content found from the specified file"));
             }
         }
         else {
-            emit error(tr("Opening for reading failed"));
+            emit error(tr("!!Opening for reading failed"));
             return;
         }
     }
