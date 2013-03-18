@@ -9,6 +9,12 @@ INCLUDEPATH += .
 
 QT += core gui declarative
 
+contains(QT_VERSION, ^5.*) {
+    QT += printsupport
+    DEFINES += QT5BUILD
+    message("building for Qt5")
+}
+
 # Input
 SOURCES += main.cpp \
     mainwindow.cpp \

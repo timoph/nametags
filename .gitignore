@@ -1,1 +1,6 @@
 nametags.pro.user
+*.o
+moc_*
+object_script.*
+Makefile
+Makefile.*

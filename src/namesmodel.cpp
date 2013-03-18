@@ -53,7 +53,9 @@ QVariant NamesModel::data(const QModelIndex &index, int role) const
 void NamesModel::setContent(const QList<QPair<QString, QString> > &content)
 {
     m_content = content;
+#ifndef QT5BUILD
     reset();
+#endif
 }
 
 QVariant NamesModel::headerData(int section, Qt::Orientation orientation, int role) const
