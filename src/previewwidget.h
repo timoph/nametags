@@ -2,10 +2,14 @@
 #define PREVIEWWIDGET_H
 
 #include <QWidget>
-
+#ifndef QT5BUILD
 class QDeclarativeView;
-class QVBoxLayout;
 class QGraphicsObject;
+#else
+class QQuickView;
+class QQuickItem;
+#endif
+class QVBoxLayout;
 
 class PreviewWidget : public QWidget
 {
@@ -21,9 +25,14 @@ public slots:
     void setPicture(const QString &file);
 
 private:
+#ifndef QT5BUILD
     QDeclarativeView *p_qmlView;
-    QVBoxLayout *p_vbox;
     QGraphicsObject *p_rootObject;
+#else
+    QQuickView *p_qmlView;
+    QQuickItem *p_rootObject;
+#endif
+    QVBoxLayout *p_vbox;
 };
 
 #endif // PREVIEWWIDGET_H

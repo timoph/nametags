@@ -7,10 +7,14 @@ TARGET = nametags
 DEPENDPATH += .
 INCLUDEPATH += .
 
-QT += core gui declarative
+
+contains(QT_VERSION, ^4.*) {
+    QT += core gui declarative
+    message("building for Qt4")	
+}
 
 contains(QT_VERSION, ^5.*) {
-    QT += printsupport
+    QT += printsupport core widgets quick
     DEFINES += QT5BUILD
     message("building for Qt5")
 }
