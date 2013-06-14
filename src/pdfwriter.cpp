@@ -50,7 +50,7 @@ void PdfWriter::printTags()
         image.load(m_image);
     }
     else {
-        image.load(":/pics/summit-fi.jpg");
+        image.load(":/pics/badge.png");
     }
 
     QPainter painter;
@@ -61,17 +61,36 @@ void PdfWriter::printTags()
 
     QFont lastNameFont = painter.font();
     lastNameFont.setPointSize(24);
+    //TODO: fixme - this is ugly
+    QRectF upperHalf(0, 0, printer.pageRect().width() / 2, printer.pageRect().height() / 4); //2);
+    qreal w = (upperHalf.width()/3); //2);
+    qreal h = (upperHalf.height()/3); //2);
+    QRectF upperFirstNameRect (w, h + h/3, w, h/2);
+    QRectF upperLastNameRect (w, h + 2*h/3, w, h/2);
 
-    QRectF upperHalf(0, 0, printer.pageRect().width(), printer.pageRect().height() / 2);
-    qreal w = (upperHalf.width()/2);
-    qreal h = (upperHalf.height()/2);
-    QRectF upperFirstNameRect (w, h + h/3, w, h/3);
-    QRectF upperLastNameRect (w, h + 2*h/3, w, h/3);
+    QRectF upperHalf2(printer.pageRect().width() / 2, 0, printer.pageRect().width() / 2, printer.pageRect().height() / 4); //2);
+    QRectF upperFirstNameRect2 (printer.pageRect().width() / 2 + w, h + h/3, w, h/2);
+    QRectF upperLastNameRect2 (printer.pageRect().width() / 2 + w, h + 2*h/3, w, h/2);
 
-    QRectF lowerHalf(0, printer.pageRect().height() / 2, printer.pageRect().width(), printer.pageRect().height() / 2);
-    QRectF lowerFirstNameRect (w, upperHalf.height() + h + h/3, w, h/3);
-    QRectF lowerLastNameRect (w, upperHalf.height() + h + 2*h/3, w, h/3);
+    QRectF lowerHalf(0, printer.pageRect().height() / 4, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
+    QRectF lowerFirstNameRect (w, upperHalf.height() + h + h/3, w, h/2);
+    QRectF lowerLastNameRect (w, upperHalf.height() + h + 2*h/3, w, h/2);
+
+    QRectF lowerHalf2(printer.pageRect().width() / 2, printer.pageRect().height() / 4, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
+    QRectF lowerFirstNameRect2 (printer.pageRect().width() / 2 + w, lowerHalf2.height() + h + h/3, w, h/2);
+    QRectF lowerLastNameRect2 (printer.pageRect().width() / 2 + w, lowerHalf2.height() + h + 2*h/3, w, h/2);
+
+    QRectF upperHalf3(0, printer.pageRect().height() / 2, printer.pageRect().width() / 2, printer.pageRect().height() / 4); //2);
+    QRectF upperFirstNameRect3 (w, printer.pageRect().height() / 2 + h + h/3, w, h/2);
+    QRectF upperLastNameRect3 (w, printer.pageRect().height() / 2 + h + 2*h/3, w, h/2);
+
+    QRectF upperHalf4(printer.pageRect().width() / 2, printer.pageRect().height() / 2, printer.pageRect().width() / 2, printer.pageRect().height() / 4); //2);
+    QRectF upperFirstNameRect4 (printer.pageRect().width() / 2 + w, printer.pageRect().height() / 2 + h + h/3, w, h/2);
+    QRectF upperLastNameRect4 (printer.pageRect().width() / 2 + w, printer.pageRect().height() / 2 + h + 2*h/3, w, h/2);
+
     painter.setPen(Qt::black);
+
+
     for(int i = 0; i < m_content.count(); i++) {
         // first name
         painter.setFont(firstNameFont);
@@ -85,6 +104,17 @@ void PdfWriter::printTags()
         painter.setFont(lastNameFont);
         painter.drawText(upperLastNameRect, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
 
+        if(i+1 < m_content.count()) {
+            i++;
+            painter.drawImage(upperHalf2, image);
+            // first name
+            painter.setFont(firstNameFont);
+            painter.drawText(upperFirstNameRect2, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
+            // last name
+            painter.setFont(lastNameFont);
+            painter.drawText(upperLastNameRect2, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
+        }
+
         // second name tag to the page if needed
         if(i+1 < m_content.count()) {
             i++;
@@ -95,6 +125,39 @@ void PdfWriter::printTags()
             // last name
             painter.setFont(lastNameFont);
             painter.drawText(lowerLastNameRect, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
+        }
+
+        if(i+1 < m_content.count()) {
+            i++;
+            painter.drawImage(lowerHalf2, image);
+            // first name
+            painter.setFont(firstNameFont);
+            painter.drawText(lowerFirstNameRect2, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
+            // last name
+            painter.setFont(lastNameFont);
+            painter.drawText(lowerLastNameRect2, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
+        }
+
+        if(i+1 < m_content.count()) {
+            i++;
+            painter.drawImage(upperHalf3, image);
+            // first name
+            painter.setFont(firstNameFont);
+            painter.drawText(upperFirstNameRect3, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
+            // last name
+            painter.setFont(lastNameFont);
+            painter.drawText(upperLastNameRect3, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
+        }
+
+        if(i+1 < m_content.count()) {
+            i++;
+            painter.drawImage(upperHalf4, image);
+            // first name
+            painter.setFont(firstNameFont);
+            painter.drawText(upperFirstNameRect4, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
+            // last name
+            painter.setFont(lastNameFont);
+            painter.drawText(upperLastNameRect4, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
         }
 
         // next page if needed

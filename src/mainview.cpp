@@ -21,7 +21,7 @@
 MainView::MainView(QWidget *parent) :
     QWidget(parent)
 {
-    m_picture = "pics/summit-fi.jpg";
+    m_picture = "pics/badge.png";
     p_model = NamesModel::instance();
     p_table = new TableView;
     p_table->setAlternatingRowColors(true);

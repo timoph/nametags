@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>pics/summit-fi.jpg</file>
         <file>preview.qml</file>
+        <file>fonts/Junction/Junction_02.ttf</file>
+        <file>pics/badge.png</file>
     </qresource>
 </RCC>
