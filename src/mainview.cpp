@@ -15,6 +15,8 @@
 #include <QToolBar>
 #include <QAction>
 #include <QActionGroup>
+#include <QFile>
+#include <QTextStream>
 
 #include <QDebug>
 
@@ -79,7 +81,7 @@ void MainView::saveInTxtFile()
 
     // in case no file has been opened
     if(fileName.isEmpty()) {
-        fileName = QFileDialog::getSaveFileName(this, tr("!!Save as.."), QDir::homePath());
+        fileName = QFileDialog::getSaveFileName(this, tr("Save as.."), QDir::homePath());
     }
 
     QFile file(fileName);
@@ -123,6 +125,23 @@ void MainView::sendSelectedNamesToCreator()
     if(!destFile.isEmpty()) {
         p_pdfCreator->create(p_table->selectedContent(), m_picture, destFile);
     }
+}
+
+void MainView::createCheckList()
+{
+    QList<QPair<QString, QString> > list = p_model->contents();
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save as.."), QDir::homePath(), "Text files (*.txt)");
+    QFile file(filename);
+    if(!file.open(QFile::WriteOnly | QFile::Text)) {
+        qDebug() << "Failed to open file for writing.";
+        return;
+    }
+
+    QTextStream out(&file);
+    for(int i = 0; i < list.count(); i++) {
+        out << QString("%1 %2\n").arg(list.at(i).first).arg(list.at(i).second);
+    }
+    out.flush();
 }
 
 void MainView::setPicture(const QString &file)
@@ -192,4 +211,5 @@ void MainView::createActions()
     p_alignmentGroup->setExclusive(true);
 
     p_optionsBar->addActions(p_alignmentGroup->actions());
+    p_optionsBar->setVisible(false); //TODO: remove when implemented
 }

@@ -56,45 +56,46 @@ void PdfWriter::printTags()
     QPainter painter;
     painter.begin(&printer);
     QFont firstNameFont = painter.font();
-    firstNameFont.setPointSize(40);
+    firstNameFont.setPointSize(32);
     QFontMetrics fontMetrics(firstNameFont);
+    int halfFontHeight = fontMetrics.height() / 1.5;
 
     QFont lastNameFont = painter.font();
     lastNameFont.setPointSize(24);
     //TODO: fixme - this is ugly
     QRectF upperHalf(0, 0, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
-    qreal w = (upperHalf.width()/3);
-    qreal h = (upperHalf.height()/3);
-    QRectF upperFirstNameRect (w, h + h/3, w, h/2);
-    QRectF upperLastNameRect (w, h + 2*h/3, w, h/2);
+    qreal w = (upperHalf.width() / 2);
+    qreal h = (upperHalf.height() / 2);
+    QRectF upperFirstNameRect (w/2, h - halfFontHeight, w, h/2);
+    QRectF upperLastNameRect (w/2, h + halfFontHeight, w, h/2);
 
     QRectF upperHalf2(printer.pageRect().width() / 2, 0, printer.pageRect().width() / 2, printer.pageRect().height() / 4); //2);
-    QRectF upperFirstNameRect2 (printer.pageRect().width() / 2 + w, h + h/3, w, h/2);
-    QRectF upperLastNameRect2 (printer.pageRect().width() / 2 + w, h + 2*h/3, w, h/2);
+    QRectF upperFirstNameRect2 (printer.pageRect().width() / 2 + w/2, h - halfFontHeight, w, h/2);
+    QRectF upperLastNameRect2 (printer.pageRect().width() / 2 + w/2, h + halfFontHeight, w, h/2);
 
     QRectF lowerHalf(0, printer.pageRect().height() / 4, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
-    QRectF lowerFirstNameRect (w, upperHalf.height() + h + h/3, w, h/2);
-    QRectF lowerLastNameRect (w, upperHalf.height() + h + 2*h/3, w, h/2);
+    QRectF lowerFirstNameRect (w/2, upperHalf.height() + h - halfFontHeight, w, h/2);
+    QRectF lowerLastNameRect (w/2, upperHalf.height() + h + halfFontHeight, w, h/2);
 
     QRectF lowerHalf2(printer.pageRect().width() / 2, printer.pageRect().height() / 4, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
-    QRectF lowerFirstNameRect2 (printer.pageRect().width() / 2 + w, lowerHalf2.height() + h + h/3, w, h/2);
-    QRectF lowerLastNameRect2 (printer.pageRect().width() / 2 + w, lowerHalf2.height() + h + 2*h/3, w, h/2);
+    QRectF lowerFirstNameRect2 (printer.pageRect().width() / 2 + w/2, lowerHalf2.height() + h - halfFontHeight, w, h/2);
+    QRectF lowerLastNameRect2 (printer.pageRect().width() / 2 + w/2, lowerHalf2.height() + h + halfFontHeight, w, h/2);
 
     QRectF upperHalf3(0, printer.pageRect().height() / 2, printer.pageRect().width() / 2, printer.pageRect().height() / 4); //2);
-    QRectF upperFirstNameRect3 (w, printer.pageRect().height() / 2 + h + h/3, w, h/2);
-    QRectF upperLastNameRect3 (w, printer.pageRect().height() / 2 + h + 2*h/3, w, h/2);
+    QRectF upperFirstNameRect3 (w/2, printer.pageRect().height() / 2 + h - halfFontHeight, w, h/2);
+    QRectF upperLastNameRect3 (w/2, printer.pageRect().height() / 2 + h + halfFontHeight, w, h/2);
 
     QRectF upperHalf4(printer.pageRect().width() / 2, printer.pageRect().height() / 2, printer.pageRect().width() / 2, printer.pageRect().height() / 4); //2);
-    QRectF upperFirstNameRect4 (printer.pageRect().width() / 2 + w, printer.pageRect().height() / 2 + h + h/3, w, h/2);
-    QRectF upperLastNameRect4 (printer.pageRect().width() / 2 + w, printer.pageRect().height() / 2 + h + 2*h/3, w, h/2);
+    QRectF upperFirstNameRect4 (printer.pageRect().width() / 2 + w/2, printer.pageRect().height() / 2 + h - halfFontHeight, w, h/2);
+    QRectF upperLastNameRect4 (printer.pageRect().width() / 2 + w/2, printer.pageRect().height() / 2 + h + halfFontHeight, w, h/2);
 
     QRectF lowerHalf3(0, 3* printer.pageRect().height() / 4, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
-    QRectF lowerFirstNameRect3 (w, 3 * printer.pageRect().height() / 4 + h + h/3, w, h/2);
-    QRectF lowerLastNameRect3 (w, 3 * printer.pageRect().height() / 4 + h + 2*h/3, w, h/2);
+    QRectF lowerFirstNameRect3 (w/2, 3 * printer.pageRect().height() / 4 + h - halfFontHeight, w, h/2);
+    QRectF lowerLastNameRect3 (w/2, 3 * printer.pageRect().height() / 4 + h + halfFontHeight, w, h/2);
 
     QRectF lowerHalf4(printer.pageRect().width() / 2, 3 * printer.pageRect().height() / 4, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
-    QRectF lowerFirstNameRect4 (printer.pageRect().width() / 2 + w, 3 * printer.pageRect().height() / 4 + h + h/3, w, h/2);
-    QRectF lowerLastNameRect4 (printer.pageRect().width() / 2 + w, 3 * printer.pageRect().height() / 4 + h + 2*h/3, w, h/2);
+    QRectF lowerFirstNameRect4 (printer.pageRect().width() / 2 + w/2, 3 * printer.pageRect().height() / 4 + h - halfFontHeight, w, h/2);
+    QRectF lowerLastNameRect4 (printer.pageRect().width() / 2 + w/2, 3 * printer.pageRect().height() / 4 + h + halfFontHeight, w, h/2);
 
     painter.setPen(Qt::black);
 
@@ -103,8 +104,9 @@ void PdfWriter::printTags()
         // first name
         painter.setFont(firstNameFont);
         painter.drawImage(upperHalf, image, image.rect());
-        while(fontMetrics.boundingRect(m_content.at(i).first).width() > upperFirstNameRect.width()) {
-            firstNameFont.setPixelSize(firstNameFont.pixelSize() - 2);
+        while(fontMetrics.boundingRect(m_content.at(i).first).width() >= upperFirstNameRect.width()) {
+            firstNameFont.setPixelSize(firstNameFont.pixelSize() - 1);
+            if(firstNameFont.pixelSize() < 8) break;
         }
         painter.drawText(upperFirstNameRect, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
 

@@ -25,6 +25,7 @@ public slots:
     void addRowTriggered();
     void selectPictureTriggered();
     void toggleToolBarVisible(bool visible);
+    void createCheckListTriggered();
 
 private:
     QMenu *p_fileMenu;

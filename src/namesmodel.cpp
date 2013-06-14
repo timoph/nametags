@@ -69,10 +69,10 @@ QVariant NamesModel::headerData(int section, Qt::Orientation orientation, int ro
     }
     else {
         if(section == 0) {
-            return tr("!!First name");
+            return tr("First name");
         }
         else if(section == 1) {
-            return tr("!!Last name");
+            return tr("Last name");
         }
         else {
             return QVariant();

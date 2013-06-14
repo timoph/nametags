@@ -31,6 +31,7 @@ signals:
 
 public slots:
     void updateSampleTag(const QModelIndex &index);
+    void createCheckList();
 
 private:
     void createActions();
