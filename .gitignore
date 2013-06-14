@@ -4,3 +4,5 @@ moc_*
 object_script.*
 Makefile
 Makefile.*
+qrc_*
+src/nametags

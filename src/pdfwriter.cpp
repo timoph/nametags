@@ -62,9 +62,9 @@ void PdfWriter::printTags()
     QFont lastNameFont = painter.font();
     lastNameFont.setPointSize(24);
     //TODO: fixme - this is ugly
-    QRectF upperHalf(0, 0, printer.pageRect().width() / 2, printer.pageRect().height() / 4); //2);
-    qreal w = (upperHalf.width()/3); //2);
-    qreal h = (upperHalf.height()/3); //2);
+    QRectF upperHalf(0, 0, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
+    qreal w = (upperHalf.width()/3);
+    qreal h = (upperHalf.height()/3);
     QRectF upperFirstNameRect (w, h + h/3, w, h/2);
     QRectF upperLastNameRect (w, h + 2*h/3, w, h/2);
 
@@ -87,6 +87,14 @@ void PdfWriter::printTags()
     QRectF upperHalf4(printer.pageRect().width() / 2, printer.pageRect().height() / 2, printer.pageRect().width() / 2, printer.pageRect().height() / 4); //2);
     QRectF upperFirstNameRect4 (printer.pageRect().width() / 2 + w, printer.pageRect().height() / 2 + h + h/3, w, h/2);
     QRectF upperLastNameRect4 (printer.pageRect().width() / 2 + w, printer.pageRect().height() / 2 + h + 2*h/3, w, h/2);
+
+    QRectF lowerHalf3(0, 3* printer.pageRect().height() / 4, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
+    QRectF lowerFirstNameRect3 (w, 3 * printer.pageRect().height() / 4 + h + h/3, w, h/2);
+    QRectF lowerLastNameRect3 (w, 3 * printer.pageRect().height() / 4 + h + 2*h/3, w, h/2);
+
+    QRectF lowerHalf4(printer.pageRect().width() / 2, 3 * printer.pageRect().height() / 4, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
+    QRectF lowerFirstNameRect4 (printer.pageRect().width() / 2 + w, 3 * printer.pageRect().height() / 4 + h + h/3, w, h/2);
+    QRectF lowerLastNameRect4 (printer.pageRect().width() / 2 + w, 3 * printer.pageRect().height() / 4 + h + 2*h/3, w, h/2);
 
     painter.setPen(Qt::black);
 
@@ -158,6 +166,28 @@ void PdfWriter::printTags()
             // last name
             painter.setFont(lastNameFont);
             painter.drawText(upperLastNameRect4, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
+        }
+
+        if(i+1 < m_content.count()) {
+            i++;
+            painter.drawImage(lowerHalf3, image);
+            // first name
+            painter.setFont(firstNameFont);
+            painter.drawText(lowerFirstNameRect3, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
+            // last name
+            painter.setFont(lastNameFont);
+            painter.drawText(lowerLastNameRect3, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
+        }
+
+        if(i+1 < m_content.count()) {
+            i++;
+            painter.drawImage(lowerHalf4, image);
+            // first name
+            painter.setFont(firstNameFont);
+            painter.drawText(lowerFirstNameRect4, Qt::AlignHCenter | Qt::AlignBottom, m_content.at(i).first);
+            // last name
+            painter.setFont(lastNameFont);
+            painter.drawText(lowerLastNameRect4, Qt::AlignHCenter | Qt::AlignTop, m_content.at(i).second);
         }
 
         // next page if needed
