@@ -1,4 +1,4 @@
-import QtQuick 1.0
+import QtQuick 2.3
 
 Rectangle {
     width: 105*4

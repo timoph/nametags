@@ -26,7 +26,11 @@ PreviewWidget::PreviewWidget(QWidget *parent) :
 
     // https://bugreports.qt-project.org/browse/QTBUG-25643 - needs to be fixed in Qt
     p_vbox = new QVBoxLayout;
-    p_vbox->addWidget(p_qmlView);
+#ifdef QT5BUILD
+	p_vbox->addWidget(QWidget::createWindowContainer(p_qmlView));
+#else
+	p_vbox->addWidget(p_qmlView);
+#endif
 
     setLayout(p_vbox);
 }

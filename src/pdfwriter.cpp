@@ -56,12 +56,12 @@ void PdfWriter::printTags()
     QPainter painter;
     painter.begin(&printer);
     QFont firstNameFont = painter.font();
-    firstNameFont.setPointSize(32);
+    firstNameFont.setPointSize(26);
     QFontMetrics fontMetrics(firstNameFont);
-    int halfFontHeight = fontMetrics.height() / 1.5;
+    int halfFontHeight = fontMetrics.height() / 1.1;
 
     QFont lastNameFont = painter.font();
-    lastNameFont.setPointSize(24);
+    lastNameFont.setPointSize(20);
     //TODO: fixme - this is ugly
     QRectF upperHalf(0, 0, printer.pageRect().width() / 2, printer.pageRect().height() / 4);
     qreal w = (upperHalf.width() / 2);

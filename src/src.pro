@@ -19,6 +19,10 @@ contains(QT_VERSION, ^5.*) {
     message("building for Qt5")
 }
 
+macx {
+	CONFIG -= app_bundle
+}
+
 # Input
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -46,7 +50,7 @@ RESOURCES += \
 OTHER_FILES += \
     preview.qml
 
-unix {
+unix:!macx {
 	target.path = /usr/bin/
 	desktop.files += nametags.desktop
 	desktop.path = /usr/share/applications/
